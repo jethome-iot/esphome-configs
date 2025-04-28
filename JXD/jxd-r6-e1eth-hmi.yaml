@@ -5,7 +5,7 @@ substitutions:
 
 # only for display version
 packages:
-  display: github://jethub-iot/configs/JXD/includes/jxd-display.yaml
+  display: github://jethome-iot/esphome-configs/JXD/includes/jxd-display.yaml
 
 esphome:
   name: jxd-r6-e1eth-hmi

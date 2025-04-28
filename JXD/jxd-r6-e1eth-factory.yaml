@@ -3,7 +3,7 @@
 #  update_url_beta: https://fw.jethome.ru/jxd-e1eth-nodisplay.json
 
 packages:
-  jxd-r6-e1eth: github://jethub-iot/configs/JXD/jxd-r6-e1eth.yaml
+  jxd-r6-e1eth: github://jethome-iot/esphome-configs/JXD/jxd-r6-e1eth.yaml
 
 esphome:
   project:
@@ -23,4 +23,4 @@ http_request:
 #    source: ${update_url}
 
 dashboard_import:
-  package_import_url: github://jethub-iot/configs/JXD/jxd-r6-e1eth.yaml
+  package_import_url: github://jethome-iot/esphome-configs/JXD/jxd-r6-e1eth.yaml
