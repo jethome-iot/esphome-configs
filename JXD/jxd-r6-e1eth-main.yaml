@@ -51,33 +51,32 @@ logger:
 web_server:
   port: 80
 
-# ethernet:
-#   type: LAN8720
-#   mdc_pin: GPIO23
-#   mdio_pin: GPIO18
-#   clk_mode: GPIO17_OUT
-#   phy_addr: 1
+ethernet:
+  type: LAN8720
+  mdc_pin: GPIO23
+  mdio_pin: GPIO18
+  clk_mode: GPIO17_OUT
+  phy_addr: 1
 
 text_sensor:
-# для Wifi используется wifi_info
+  # для Wifi используется wifi_info
   - platform: wifi_info
     ip_address:
       name: "Wifi IP"
-      id: ip
+      id: ip_wifi
     mac_address:
-      name: ESP Mac Wifi Address
-      id: mac1
+      name: "Wifi Mac"
+      id: mac_wifi
 
-# для ETH используется ethernet_info
-  # - platform: ethernet_info
-  #   ip_address:
-  #     name: ESP IP Address
-  #     address_0:
-  #       name: IP
-  #       id: ip
-  #   mac_address:
-  #     name: MAC
-  #     id: mac1
+  # для ETH используется ethernet_info
+  - platform: ethernet_info
+    ip_address:
+      name: "Ethernet IP"
+      address_0:
+        id: ip_eth
+    mac_address:
+      name: "Ethernet Mac"
+      id: mac_eth
 
 i2c:
   sda: 5

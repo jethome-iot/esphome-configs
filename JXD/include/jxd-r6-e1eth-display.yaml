@@ -134,10 +134,10 @@ graphical_display_menu:
       items:
         - type: label
           text: !lambda |-
-            return "IP: " + id(ip).state;
+            return std::string("IP: ") + (id(wifi_id).is_connected() ? id(ip_wifi).state : id(ip_eth).state);
         - type: label
           text: !lambda |-
-            return "MC: " + id(mac1).state;
+            return std::string("MC: ") + (id(wifi_id).is_connected() ? id(mac_wifi).state : id(mac_eth).state);
 
         - type: back
           text: "Back"
