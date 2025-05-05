@@ -1,0 +1,33 @@
+# Enable WiFi connection
+wifi:
+  id: wifi_id
+  reboot_timeout: 0s
+  enable_on_boot: false
+  ap:
+    ssid: "${friendly_name} Hotspot"
+    password: !secret wifi_hotspot_password
+
+captive_portal:
+
+switch:
+  - platform: template
+    id: wifi_switch
+    optimistic: true
+    name: "wifi switch"
+    restore_mode: RESTORE_DEFAULT_OFF
+    internal: true
+    on_turn_on:
+      - lambda: 'id(wifi_id).enable();'
+      - lambda: 'id(wifi_id).set_enable_on_boot(true);'
+    on_turn_off:
+      - lambda: 'id(wifi_id).disable();'
+
+script:
+  - id: reset_wifi
+    then:
+      - logger.log: 'Reset wifi creds'
+      - lambda: 'id(wifi_id).save_wifi_sta("", "");'
+      - lambda: 'id(wifi_id).clear_sta();'
+      - switch.turn_on: wifi_switch
+      - delay: 1s
+      - lambda: 'App.reboot();'

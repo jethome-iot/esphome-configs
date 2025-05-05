@@ -1,0 +1,113 @@
+packages:
+  display: !include include/jxd-r6-e1eth-display.yaml
+  names: !include include/jxd-r6-e1eth-names.yaml
+  d6-r6-board: !include include/jxd-d6-r6-rev1.2.yaml
+  vin_measure: !include include/jxd-r6-vin-measure.yaml
+  time: !include include/jxd-r6-e1eth-time.yaml
+  wifi: !include include/jxd-r6-wifi.yaml
+  external: !include include/jxd-r6-external.yaml
+  develop: !include include/jxd-r6-external-dev.yaml
+
+api:
+  encryption:
+    key: !secret api_key
+
+esphome:
+  name: "jxd-r6-e1eth-dev1"
+  # name_add_mac_suffix: true
+  friendly_name: ${friendly_name}
+  on_boot:
+    priority: 600
+    then:
+      - pcf8563.read_time:
+          id: pcf8563_time
+
+ota:
+  - platform: esphome
+
+esp32:
+  board: esp32dev
+  flash_size: 8MB
+  framework:
+    type: esp-idf
+    version: 5.1.5
+# Custom sdkconfig options
+    sdkconfig_options:
+      CONFIG_COMPILER_OPTIMIZATION_SPEED: y
+      CONFIG_D0WD_PSRAM_CLK_IO: "6"
+
+psram:
+  mode: quad
+  speed: 80MHz
+
+# Enable logging
+logger:
+  level: debug
+  logs:
+    esp-idf: INFO
+    wifi: INFO
+
+# Enable built-in web server
+web_server:
+  port: 80
+
+# ethernet:
+#   type: LAN8720
+#   mdc_pin: GPIO23
+#   mdio_pin: GPIO18
+#   clk_mode: GPIO17_OUT
+#   phy_addr: 1
+
+text_sensor:
+# для Wifi используется wifi_info
+  - platform: wifi_info
+    ip_address:
+      name: "Wifi IP"
+      id: ip
+    mac_address:
+      name: ESP Mac Wifi Address
+      id: mac1
+
+# для ETH используется ethernet_info
+  # - platform: ethernet_info
+  #   ip_address:
+  #     name: ESP IP Address
+  #     address_0:
+  #       name: IP
+  #       id: ip
+  #   mac_address:
+  #     name: MAC
+  #     id: mac1
+
+i2c:
+  sda: 5
+  scl: 4
+  frequency: 800kHz
+  # для дисплея 800кГц лучше, нет warnings по display
+  scan: true
+  id: i2c1
+
+one_wire:
+  id: one_wire1_id
+  platform: gpio
+  pin: GPIO15
+
+sensor:
+# temperature sensor
+  - platform: tmp102
+    name: "PCB TEMPERATURE"
+    update_interval: 20s
+
+switch:
+  - platform: gpio
+    name: "Red led"
+    id: red_led
+    pin: GPIO2
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO0
+      inverted: true
+    name: "FN button"
+    id: fn_button

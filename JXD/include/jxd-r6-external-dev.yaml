@@ -1,0 +1,6 @@
+# For developing with components from local folders
+# external_components:
+#   - source:
+#         type: local
+#         path: ../jethome-esphome/esphome/components/
+#     components: [wifi, ethernet]

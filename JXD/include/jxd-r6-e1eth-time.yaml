@@ -1,0 +1,19 @@
+time:
+# Компонент для RTC PCF8563
+  - platform: pcf8563
+    id: pcf8563_time
+    address: 0x51
+    timezone: Europe/Moscow
+    # update_interval: 15 min
+# получение времени с ntp
+  - platform: sntp
+    id: sntp_time
+    timezone: Europe/Moscow
+    servers:
+      - 0.pool.ntp.org
+      - 1.pool.ntp.org
+      - 2.pool.ntp.org
+# синхронизация времени
+    on_time_sync:
+      then:
+        pcf8563.write_time:

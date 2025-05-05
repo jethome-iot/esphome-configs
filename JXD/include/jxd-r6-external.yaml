@@ -1,0 +1,7 @@
+# For using components from external github repositories
+external_components:
+  - source:
+      type: git
+      url: https://github.com/jethome-iot/esphome-private
+      ref: dev-jethub
+    components: [wifi, ethernet]

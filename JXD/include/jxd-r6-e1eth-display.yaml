@@ -91,12 +91,13 @@ binary_sensor:
         - display_menu.enter:
 # joystick and buttons
 
-# menu
-
 font:
-  - file: './fonts/GohuFont11NerdFontMono-Regular.ttf'
+  - file:
+      type: gfonts
+      family: Roboto
+      weight: 300
     id: font1
-    size: 11
+    size: 12
 
 display:
   - platform: ssd1306_i2c
@@ -114,22 +115,6 @@ display:
       } else {
         it.print(0, 0, id(font1), "Menu is hidden, other drawing would go here here");
       }
-    # pages:
-    #   - id: main
-
-    # lambda: |-
-      # it.print(0, 0, id(font1), "JetHome");
-      # it.strftime(0, 55, id(font1), TextAlign::BASELINE_LEFT, "%H:%M:%S", id(sntp_time).now());
-
-# Menu start
-
-
-# Reports the WiFi signal strength/RSSI in dB
-# sensors:
-#   - platform: wifi_signal
-#     name: "WiFi Signal dB"
-#     id: wifi_signal_db
-#     update_interval: 3s
 
 graphical_display_menu:
   id: display_menu
@@ -153,9 +138,7 @@ graphical_display_menu:
         - type: label
           text: !lambda |-
             return "MC: " + id(mac1).state;
-        # - type: label
-        #   text: !lambda |-
-        #     return "VIN: " + id(vin_meas).state;
+
         - type: back
           text: "Back"
 
@@ -168,125 +151,57 @@ graphical_display_menu:
         - type: switch
           immediate_edit: true
           text: 'Relay 1'
-          # on_text: 'Bright'
-          # off_text: 'Dark'
           switch: relay_1
-          on_enter:
-            then:
-              lambda: 'it->get_text().c_str();'
-          # on_leave:
-          #   then:
-          on_value:
-            then:
-              lambda: 'it->get_text().c_str();'
 
         - type: switch
           immediate_edit: true
           text: 'Relay 2'
-          # on_text: 'Bright'
-          # off_text: 'Dark'
           switch: relay_2
-          on_enter:
-            then:
-              lambda: 'it->get_text().c_str();'
-          # on_leave:
-          #   then:
-          on_value:
-            then:
-              lambda: 'it->get_text().c_str();'
 
         - type: switch
           immediate_edit: true
           text: 'Relay 3'
-          # on_text: 'Bright'
-          # off_text: 'Dark'
           switch: relay_3
-          on_enter:
-            then:
-              lambda: 'it->get_text().c_str();'
-          # on_leave:
-          #   then:
-          on_value:
-            then:
-              lambda: 'it->get_text().c_str();'
 
         - type: switch
           immediate_edit: true
           text: 'Relay 4'
-          # on_text: 'Bright'
-          # off_text: 'Dark'
           switch: relay_4
-          on_enter:
-            then:
-              lambda: 'it->get_text().c_str();'
-          # on_leave:
-          #   then:
-          on_value:
-            then:
-              lambda: 'it->get_text().c_str();'
 
         - type: switch
           immediate_edit: true
           text: 'Relay 5'
-          # on_text: 'Bright'
-          # off_text: 'Dark'
           switch: relay_5
-          on_enter:
-            then:
-              lambda: 'it->get_text().c_str();'
-          # on_leave:
-          #   then:
-          on_value:
-            then:
-              lambda: 'it->get_text().c_str();'
 
         - type: switch
           immediate_edit: true
           text: 'Relay 6'
-          # on_text: 'Bright'
-          # off_text: 'Dark'
           switch: relay_6
-          on_enter:
-            then:
-              lambda: 'it->get_text().c_str();'
-          # on_leave:
-          #   then:
-          on_value:
-            then:
-              lambda: 'it->get_text().c_str();'
-
-        # - type: select
-        #   immediate_edit: false
-        #   select: mode
-        #   on_enter:
-        #     then:
-        #       lambda: "it->get_text().c_str();"
-        #   on_leave:
-        #     then:
-        #       lambda: "it->get_text().c_str();"
-        #   on_value:
-        #     then:
-        #       lambda: "it->get_text().c_str();"
-
 
         - type: back
           text: "Back"
 
-    # - type: label
-    #   text: !lambda |-
-    #     return id(wifi_ip).state;
-    # - type: label
-    #   text: 'Label 1'
-    # - type: label
-    #   text: !lambda |-
-    #     return "Templated label";
+    - type: menu
+      text: 'WiFi'
+      id: menu_wifi
+      on_enter:
+        then:
+      items:
+        - type: switch
+          immediate_edit: true
+          text: 'Wifi state'
+          switch: wifi_switch
 
-# select:
-#   - platform: template
-#     name: Mode
-#     id: mode
-#     optimistic: true
-#     options:
-#      - "Direct"
-#      - "Bind"
-#     initial_option: "Direct"
+        - type: menu
+          text: 'Reset wifi'
+          items:
+            - type: command
+              text: "Reset?"
+              on_value:
+                - script.execute: reset_wifi
+
+            - type: back
+              text: "Back"
+
+        - type: back
+          text: "Back"

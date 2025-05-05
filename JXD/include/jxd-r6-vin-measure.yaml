@@ -1,0 +1,55 @@
+sensor:
+# VIN measure
+  - platform: adc
+    pin: GPIO35
+    attenuation: 2.5dB
+    accuracy_decimals: 2
+    filters:
+      - multiply: 32.0
+      - median:
+          window_size: 20
+          send_every: 20
+          send_first_at: 10
+      - calibrate_polynomial:
+          degree: 3
+          datapoints:
+            - 8.76 -> 9.0
+            - 11.72 -> 12.0
+            - 15.56 -> 16.0
+            - 23.36 -> 24.0
+            - 29.28 -> 30.0
+      - clamp:
+          min_value: 0
+      - lambda: |-
+          if (x <=2.8) return 0;
+          return x;
+
+    name: "VIN voltage"
+    id: vin_meas
+    update_interval: 100ms
+
+  - platform: adc
+    pin: GPIO37
+    attenuation: 2.5dB
+    accuracy_decimals: 2
+    filters:
+      - multiply: 32.0
+      - median:
+          window_size: 20
+          send_every: 20
+          send_first_at: 10
+      - calibrate_polynomial:
+          degree: 3
+          datapoints:
+            - 8.76 -> 9.0
+            - 11.72 -> 12.0
+            - 15.56 -> 16.0
+            - 23.36 -> 24.0
+            - 29.28 -> 30.0
+      - clamp:
+          min_value: 0
+      - lambda: |-
+          if (x <=2.8) return 0;
+          return x;
+    name: "PoE voltage"
+    update_interval: 100ms
