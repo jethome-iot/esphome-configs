@@ -2,5 +2,5 @@
 # external_components:
 #   - source:
 #         type: local
-#         path: ../jethome-esphome/esphome/components/
+#         path: ../../jethome-esphome/esphome/components/
 #     components: [wifi, ethernet]
