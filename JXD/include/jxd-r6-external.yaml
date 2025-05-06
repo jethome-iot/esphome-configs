@@ -4,4 +4,4 @@ external_components:
       type: git
       url: https://github.com/jethome-iot/esphome-private
       ref: JXD-R6-ETH
-    components: [wifi, ethernet]
+    components: [wifi, ethernet, display_menu_base]
