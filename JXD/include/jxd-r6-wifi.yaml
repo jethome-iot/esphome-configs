@@ -1,7 +1,7 @@
 # Enable WiFi connection
 wifi:
   id: wifi_id
-  reboot_timeout: 0s
+  reboot_timeout: 5min
   enable_on_boot: false
   ap:
     ssid: "${friendly_name} Hotspot"
