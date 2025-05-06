@@ -28,7 +28,4 @@ script:
     then:
       - logger.log: 'Reset wifi creds'
       - lambda: 'id(wifi_id).save_wifi_sta("", "");'
-      - lambda: 'id(wifi_id).clear_sta();'
-      - switch.turn_on: wifi_switch
-      - delay: 1s
       - lambda: 'App.reboot();'
