@@ -1,0 +1,21 @@
+select:
+  - platform: template
+    id: network_select_id
+    optimistic: true
+    options:
+      - "Wifi"
+      - "Ethernet"
+
+script:
+  - id: setup_network_type
+    then:
+      - lambda: |-
+          if (id(network_select_id).state == "Wifi") {
+            id(wifi_switch).turn_on();
+            id(ethernet_switch).turn_off();
+          }
+          else if(id(network_select_id).state == "Ethernet") {
+            id(wifi_switch).turn_off();
+            id(ethernet_switch).turn_on();
+          }
+      - lambda: 'App.reboot();'

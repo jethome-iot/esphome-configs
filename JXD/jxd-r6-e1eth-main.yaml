@@ -5,6 +5,8 @@ packages:
   vin_measure: !include include/jxd-r6-vin-measure.yaml
   time: !include include/jxd-r6-e1eth-time.yaml
   wifi: !include include/jxd-r6-wifi.yaml
+  ethernet: !include include/jxd-r6-eth.yaml
+  network: !include include/jxd-r6-network-select.yaml
   external: !include include/jxd-r6-external.yaml
   develop: !include include/jxd-r6-external-dev.yaml
 
@@ -50,13 +52,6 @@ logger:
 # Enable built-in web server
 web_server:
   port: 80
-
-ethernet:
-  type: LAN8720
-  mdc_pin: GPIO23
-  mdio_pin: GPIO18
-  clk_mode: GPIO17_OUT
-  phy_addr: 1
 
 text_sensor:
   # для Wifi используется wifi_info

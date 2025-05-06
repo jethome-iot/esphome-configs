@@ -134,10 +134,25 @@ graphical_display_menu:
       items:
         - type: label
           text: !lambda |-
-            return std::string("IP: ") + (id(wifi_id).is_connected() ? id(ip_wifi).state : id(ip_eth).state);
+            std::string res;
+            if (id(ethernet_switch).state) {
+              res = id(ip_eth).state;
+            }
+            else if (id(wifi_switch).state) {
+              res = id(ip_wifi).state;
+            }
+            return std::string("IP: ") + res;
         - type: label
           text: !lambda |-
-            return std::string("MC: ") + (id(wifi_id).is_connected() ? id(mac_wifi).state : id(mac_eth).state);
+            std::string res;
+            if (id(ethernet_switch).state) {
+              res = id(mac_eth).state;
+            }
+            else if (id(wifi_switch).state) {
+              res = id(mac_wifi).state;
+            }
+
+            return std::string("MC: ") + res;
 
         - type: back
           text: "Back"
@@ -180,6 +195,33 @@ graphical_display_menu:
 
         - type: back
           text: "Back"
+
+    - type: menu
+      text: 'Network'
+      items:
+        - type: menu
+          text: 'Connection type'
+          on_enter:
+            - lambda: |-
+                auto call = id(network_select_id).make_call();
+                if (id(wifi_switch).state) {
+                  call.set_index(0);
+                }
+                else if (id(ethernet_switch).state) {
+                  call.set_index(1);
+                }
+                call.perform();
+          items:
+            - type: select
+              select: network_select_id
+
+            - type: command
+              text: "Apply"
+              on_value:
+                - script.execute: setup_network_type
+
+            - type: back
+              text: "Back"
 
     - type: menu
       text: 'WiFi'

@@ -21,6 +21,7 @@ switch:
       - lambda: 'id(wifi_id).set_enable_on_boot(true);'
     on_turn_off:
       - lambda: 'id(wifi_id).disable();'
+      - lambda: 'id(wifi_id).set_enable_on_boot(false);'
 
 script:
   - id: reset_wifi

@@ -1,0 +1,19 @@
+ethernet:
+  id: ethernet_id
+  type: LAN8720
+  mdc_pin: GPIO23
+  mdio_pin: GPIO18
+  clk_mode: GPIO17_OUT
+  phy_addr: 1
+
+switch:
+  - platform: template
+    id: ethernet_switch
+    optimistic: true
+    name: "Ethernet switch"
+    restore_mode: RESTORE_DEFAULT_OFF
+    internal: true
+    on_turn_on:
+      - lambda: 'id(ethernet_id).set_enable_on_boot(true);'
+    on_turn_off:
+      - lambda: 'id(ethernet_id).set_enable_on_boot(false);'
