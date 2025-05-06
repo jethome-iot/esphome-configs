@@ -76,7 +76,7 @@ binary_sensor:
       inverted: false
     on_press:
       then:
-        - display_menu.show_main:
+        - display_menu.back:
 
   - platform: gpio
     name: "ENT"
