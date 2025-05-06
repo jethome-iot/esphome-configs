@@ -3,5 +3,5 @@ external_components:
   - source:
       type: git
       url: https://github.com/jethome-iot/esphome-private
-      ref: JXD-204-graphical-display-back-action
+      ref: JXD-R6-ETH
     components: [wifi, ethernet, display_menu_base]
