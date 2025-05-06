@@ -126,36 +126,6 @@ graphical_display_menu:
   active: true
   mode: joystick
   items:
-    - type: menu
-      text: 'Info'
-      id: info_submenu
-      on_enter:
-        then:
-      items:
-        - type: label
-          text: !lambda |-
-            std::string res;
-            if (id(ethernet_switch).state) {
-              res = id(ip_eth).state;
-            }
-            else if (id(wifi_switch).state) {
-              res = id(ip_wifi).state;
-            }
-            return std::string("IP: ") + res;
-        - type: label
-          text: !lambda |-
-            std::string res;
-            if (id(ethernet_switch).state) {
-              res = id(mac_eth).state;
-            }
-            else if (id(wifi_switch).state) {
-              res = id(mac_wifi).state;
-            }
-
-            return std::string("MC: ") + res;
-
-        - type: back
-          text: "Back"
 
     - type: menu
       text: 'Switch'
@@ -200,6 +170,35 @@ graphical_display_menu:
       text: 'Network'
       items:
         - type: menu
+          text: 'Info'
+          id: info_submenu
+          items:
+            - type: label
+              text: !lambda |-
+                std::string res;
+                if (id(ethernet_switch).state) {
+                  res = id(ip_eth).state;
+                }
+                else if (id(wifi_switch).state) {
+                  res = id(ip_wifi).state;
+                }
+                return std::string("IP: ") + res;
+            - type: label
+              text: !lambda |-
+                std::string res;
+                if (id(ethernet_switch).state) {
+                  res = id(mac_eth).state;
+                }
+                else if (id(wifi_switch).state) {
+                  res = id(mac_wifi).state;
+                }
+
+                return std::string("MC: ") + res;
+
+            - type: back
+              text: "Back"
+
+        - type: menu
           text: 'Connection type'
           on_enter:
             - lambda: |-
@@ -223,19 +222,8 @@ graphical_display_menu:
             - type: back
               text: "Back"
 
-    - type: menu
-      text: 'WiFi'
-      id: menu_wifi
-      on_enter:
-        then:
-      items:
-        - type: switch
-          immediate_edit: true
-          text: 'Wifi state'
-          switch: wifi_switch
-
         - type: menu
-          text: 'Reset wifi'
+          text: 'Reset wifi creds'
           items:
             - type: command
               text: "Reset?"
@@ -245,5 +233,3 @@ graphical_display_menu:
             - type: back
               text: "Back"
 
-        - type: back
-          text: "Back"
