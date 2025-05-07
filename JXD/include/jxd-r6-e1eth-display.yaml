@@ -140,9 +140,6 @@ graphical_display_menu:
           text: !lambda |-
             return "MC: " + id(mac1).state;
 
-        - type: back
-          text: "Back"
-
     - type: menu
       text: 'Switch'
       id: switch_submenu
@@ -179,9 +176,6 @@ graphical_display_menu:
           text: 'Relay 6'
           switch: relay_6
 
-        - type: back
-          text: "Back"
-
     - type: menu
       text: 'WiFi'
       id: menu_wifi
@@ -200,9 +194,3 @@ graphical_display_menu:
               text: "Reset?"
               on_value:
                 - script.execute: reset_wifi
-
-            - type: back
-              text: "Back"
-
-        - type: back
-          text: "Back"
