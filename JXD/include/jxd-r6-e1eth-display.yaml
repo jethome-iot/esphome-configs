@@ -67,7 +67,7 @@ binary_sensor:
         - display_menu.enter:
 
   - platform: gpio
-    name: "ESC"
+    name: "HOME"
     pin:
       pca9554: jxd_display_exp
       number: 13
@@ -76,10 +76,10 @@ binary_sensor:
       inverted: false
     on_press:
       then:
-        - display_menu.back:
+        - display_menu.show_main:
 
   - platform: gpio
-    name: "ENT"
+    name: "BACK"
     pin:
       pca9554: jxd_display_exp
       number: 14
@@ -88,7 +88,7 @@ binary_sensor:
       inverted: false
     on_press:
       then:
-        - display_menu.enter:
+        - display_menu.back:
 # joystick and buttons
 
 font:
@@ -120,6 +120,7 @@ graphical_display_menu:
   id: display_menu
   font: font1
   display: display1
+  right_for_menu_enter: false
   on_redraw:
     then:
       component.update: display1
