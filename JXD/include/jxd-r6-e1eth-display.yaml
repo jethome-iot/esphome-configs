@@ -76,7 +76,7 @@ binary_sensor:
       inverted: false
     on_press:
       then:
-        - display_menu.show_main:
+        - display_menu.back:
 
   - platform: gpio
     name: "ENT"
@@ -163,9 +163,6 @@ graphical_display_menu:
           text: 'Relay 6'
           switch: relay_6
 
-        - type: back
-          text: "Back"
-
     - type: menu
       text: 'Network'
       items:
@@ -195,9 +192,6 @@ graphical_display_menu:
 
                 return std::string("MC: ") + res;
 
-            - type: back
-              text: "Back"
-
         - type: menu
           text: 'Connection type'
           on_enter:
@@ -219,9 +213,6 @@ graphical_display_menu:
               on_value:
                 - script.execute: setup_network_type
 
-            - type: back
-              text: "Back"
-
         - type: menu
           text: 'Reset wifi creds'
           items:
@@ -229,7 +220,3 @@ graphical_display_menu:
               text: "Reset?"
               on_value:
                 - script.execute: reset_wifi
-
-            - type: back
-              text: "Back"
-
