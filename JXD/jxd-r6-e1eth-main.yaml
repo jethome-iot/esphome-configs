@@ -1,6 +1,5 @@
 packages:
   display: !include include/jxd-r6-e1eth-display.yaml
-  names: !include include/jxd-r6-e1eth-names.yaml
   d6-r6-board: !include include/jxd-d6-r6-rev1.2.yaml
   vin_measure: !include include/jxd-r6-vin-measure.yaml
   time: !include include/jxd-r6-e1eth-time.yaml
@@ -10,12 +9,17 @@ packages:
   external: !include include/jxd-r6-external.yaml
   develop: !include include/jxd-r6-external-dev.yaml
 
+substitutions: #defaults
+  name: "jxd-r6-e1eth-main"
+  friendly_name: JXD-R6-E1ETH
+  device_description: JXD-R6-E1ETH v1
+
 api:
   encryption:
     key: !secret api_key
 
 esphome:
-  name: "jxd-r6-e1eth-dev1"
+  name: ${name}
   # name_add_mac_suffix: true
   friendly_name: ${friendly_name}
   on_boot:
