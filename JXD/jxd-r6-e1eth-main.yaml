@@ -13,6 +13,7 @@ substitutions: #defaults
   name: "jxd-r6-e1eth-main"
   friendly_name: JXD-R6-E1ETH
   device_description: JXD-R6-E1ETH v1
+  branch_name: dev-jethub
 
 api:
   encryption:
