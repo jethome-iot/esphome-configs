@@ -4,4 +4,4 @@ external_components:
       type: git
       url: https://github.com/jethome-iot/esphome
       ref: ${branch_name}
-    components: [wifi, ethernet, display_menu_base]
+    components: [wifi, ethernet, dallas_temp_searcher, display_menu_base]

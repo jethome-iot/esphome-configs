@@ -1,0 +1,41 @@
+one_wire:
+  id: one_wire1_id
+  platform: gpio
+  pin: GPIO15
+
+dallas_temp_searcher:
+  id: dallas_searcher_id
+  update_interval: 2s
+  one_wire_id: one_wire1_id
+  max_sensors_num: 3
+  mode: address_map
+
+interval:
+  - interval: 20s
+    then:
+      - lambda: |-
+          auto sensor = id(dallas_searcher_id).sensor(1);
+          if (sensor) {
+            ESP_LOGD("DTS TEST", "Temp 1 %f", sensor->state);
+          }
+          else {
+            ESP_LOGD("DTS TEST","Error");
+          }
+
+      - lambda: |-
+          auto sensor = id(dallas_searcher_id).sensor(2);
+          if (sensor) {
+            ESP_LOGD("DTS TEST", "Temp 2 %f", sensor->state);
+          }
+          else {
+            ESP_LOGD("DTS TEST","Error");
+          }
+
+      - lambda: |-
+          auto sensor = id(dallas_searcher_id).sensor(3);
+          if (sensor) {
+            ESP_LOGD("DTS TEST", "Temp 3 %f", sensor->state);
+          }
+          else {
+            ESP_LOGD("DTS TEST","Error");
+          }

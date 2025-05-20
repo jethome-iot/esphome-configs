@@ -8,12 +8,13 @@ packages:
   network: !include include/jxd-r6-network-select.yaml
   external: !include include/jxd-r6-external.yaml
   develop: !include include/jxd-r6-external-dev.yaml
+  one-wire: !include include/jxd-r6-one-wire.yaml
 
 substitutions: #defaults
   name: "jxd-r6-e1eth-main"
   friendly_name: JXD-R6-E1ETH
   device_description: JXD-R6-E1ETH v1
-  branch_name: dev-jethub
+  branch_name: demo
 
 api:
   encryption:
@@ -85,11 +86,6 @@ i2c:
   # для дисплея 800кГц лучше, нет warnings по display
   scan: true
   id: i2c1
-
-one_wire:
-  id: one_wire1_id
-  platform: gpio
-  pin: GPIO15
 
 sensor:
 # temperature sensor
